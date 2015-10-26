@@ -64,6 +64,7 @@ LOCAL_C_INCLUDES += external/libnetfilter_conntrack/libmnl/libmnl.h
 LOCAL_C_INCLUDES += external/libnfnetlink/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+LOCAL_CFLAGS += -include $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/linux/swab.h
 LOCAL_SHARED_LIBRARIES := $(common_SHARED_LIBRARIES) libnfnetlink
 
 LOCAL_MODULE:= libnetfilter_conntrack
