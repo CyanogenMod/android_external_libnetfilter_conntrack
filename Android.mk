@@ -45,7 +45,7 @@ common_C_INCLUDES += \
 #
 #LOCAL_SRC_FILES := $(common_SRC_FILES)
 #LOCAL_C_INCLUDES := $(common_C_INCLUDES)
-#LOCAL_C_INCLUDES += external/libnetfilter_conntrack/libmnl/libmnl.h
+#LOCAL_C_INCLUDES += external/libnetfilter_conntrack
 #LOCAL_C_INCLUDES += external/libnfnetlink/include
 #LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 #
@@ -60,7 +60,7 @@ include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(common_SRC_FILES)
 LOCAL_C_INCLUDES := $(common_C_INCLUDES)
-LOCAL_C_INCLUDES += external/libnetfilter_conntrack/libmnl/libmnl.h
+LOCAL_C_INCLUDES += external/libnetfilter_conntrack
 LOCAL_C_INCLUDES += external/libnfnetlink/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_SHARED_LIBRARIES := $(common_SHARED_LIBRARIES) libnfnetlink
@@ -75,7 +75,7 @@ include $(BUILD_SHARED_LIBRARY)
 ###    include $(CLEAR_VARS)
 ###    LOCAL_SRC_FILES := $(common_SRC_FILES)
 ###    LOCAL_C_INCLUDES := $(common_C_INCLUDES)
-###    LOCAL_C_INCLUDES += external/libnetfilter_conntrack/libmnl/libmnl.h
+###    LOCAL_C_INCLUDES += external/libnetfilter_conntrack
 ###    LOCAL_C_INCLUDES += external/libnfnetlink/include
 ###    LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 ###    LOCAL_MODULE:= libnetfilter_conntrack

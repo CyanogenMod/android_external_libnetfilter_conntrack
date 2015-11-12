@@ -8,6 +8,7 @@
  */
 
 #include "internal/internal.h"
+#include <endian.h>
 
 static void __build_tuple_ip(struct nfnlhdr *req,
 			     size_t size,
@@ -197,11 +198,8 @@ static void __build_protoinfo(struct nfnlhdr *req, size_t size,
 				       &ct->protoinfo.dccp.role,
 				       sizeof(u_int8_t));
 		if (test_bit(ATTR_DCCP_HANDSHAKE_SEQ, ct->head.set)) {
-			/* FIXME: use __cpu_to_be64() instead which is the
-			 * correct operation. This is a semantic abuse but
-			 * we have no function to do it in libnfnetlink. */
 			u_int64_t handshake_seq =
-				__be64_to_cpu(ct->protoinfo.dccp.handshake_seq);
+				htobe64(ct->protoinfo.dccp.handshake_seq);
 
 			nfnl_addattr_l(&req->nlh, size,
 				       CTA_PROTOINFO_DCCP_HANDSHAKE_SEQ,
