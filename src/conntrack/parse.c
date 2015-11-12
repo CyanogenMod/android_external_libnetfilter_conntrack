@@ -10,6 +10,7 @@
 #include "internal/internal.h"
 #include <limits.h>
 #include <libmnl/libmnl.h>
+#include <endian.h>
 
 static void __parse_ip(const struct nfattr *attr,
 		       struct __nfct_tuple *tuple,
@@ -284,7 +285,7 @@ static void __parse_protoinfo_dccp(const struct nfattr *attr,
 		memcpy(&tmp,
 		       NFA_DATA(tb[CTA_PROTOINFO_DCCP_HANDSHAKE_SEQ-1]),
 		       sizeof(tmp));
-		ct->protoinfo.dccp.handshake_seq = __be64_to_cpu(tmp);
+		ct->protoinfo.dccp.handshake_seq = be64toh(tmp);
 		set_bit(ATTR_DCCP_HANDSHAKE_SEQ, ct->head.set);
 	}
 }
@@ -325,7 +326,7 @@ static void __parse_counters(const struct nfattr *attr,
 			memcpy(&tmp,
 			       NFA_DATA(tb[CTA_COUNTERS_PACKETS-1]),
 			       sizeof(tmp));
-			ct->counters[dir].packets = __be64_to_cpu(tmp);
+			ct->counters[dir].packets = be64toh(tmp);
 		}
 
 		switch(dir) {
@@ -349,7 +350,7 @@ static void __parse_counters(const struct nfattr *attr,
 			memcpy(&tmp,
 			       NFA_DATA(tb[CTA_COUNTERS_BYTES-1]),
 			       sizeof(tmp));
-			ct->counters[dir].bytes = __be64_to_cpu(tmp);
+			ct->counters[dir].bytes = be64toh(tmp);
 		}
 
 		switch(dir) {
@@ -466,13 +467,13 @@ __parse_timestamp(const struct nfattr *attr, struct nf_conntrack *ct)
 	if (tb[CTA_TIMESTAMP_START-1]) {
 		u_int64_t tmp;
 		memcpy(&tmp, NFA_DATA(tb[CTA_TIMESTAMP_START-1]), sizeof(tmp));
-		ct->timestamp.start = __be64_to_cpu(tmp);
+		ct->timestamp.start = be64toh(tmp);
 		set_bit(ATTR_TIMESTAMP_START, ct->head.set);
 	}
 	if (tb[CTA_TIMESTAMP_STOP-1]) {
 		u_int64_t tmp;
 		memcpy(&tmp, NFA_DATA(tb[CTA_TIMESTAMP_STOP-1]), sizeof(tmp));
-		ct->timestamp.stop = __be64_to_cpu(tmp);
+		ct->timestamp.stop = be64toh(tmp);
 		set_bit(ATTR_TIMESTAMP_STOP, ct->head.set);
 	}
 }
