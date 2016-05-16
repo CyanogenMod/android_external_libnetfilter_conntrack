@@ -950,20 +950,20 @@ int nfct_parse_conntrack(enum nf_conntrack_msg_type type,
  * On error, -1 is returned and errno is explicitely set. On success, 0
  * is returned.
  */
+#define QUERY_SIZE 4096
 int nfct_query(struct nfct_handle *h,
 	       const enum nf_conntrack_query qt,
 	       const void *data)
 {
-	size_t size = 4096;	/* enough for now */
 	union {
-		char buffer[size];
+		char buffer[QUERY_SIZE];
 		struct nfnlhdr req;
 	} u;
 
 	assert(h != NULL);
 	assert(data != NULL);
 
-	if (__build_query_ct(h->nfnlssh_ct, qt, data, &u.req, size) == -1)
+	if (__build_query_ct(h->nfnlssh_ct, qt, data, &u.req, QUERY_SIZE) == -1)
 		return -1;
 
 	return nfnl_query(h->nfnlh, &u.req.nlh);
@@ -986,16 +986,15 @@ int nfct_send(struct nfct_handle *h,
 	      const enum nf_conntrack_query qt,
 	      const void *data)
 {
-	size_t size = 4096;	/* enough for now */
 	union {
-		char buffer[size];
+		char buffer[QUERY_SIZE];
 		struct nfnlhdr req;
 	} u;
 
 	assert(h != NULL);
 	assert(data != NULL);
 
-	if (__build_query_ct(h->nfnlssh_ct, qt, data, &u.req, size) == -1)
+	if (__build_query_ct(h->nfnlssh_ct, qt, data, &u.req, QUERY_SIZE) == -1)
 		return -1;
 
 	return nfnl_send(h->nfnlh, &u.req.nlh);
